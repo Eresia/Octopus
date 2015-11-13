@@ -1,0 +1,11 @@
+clarifier la différence entre is_active
+et Timeout qui semblent un peu faire doubel emplois...
+
+
+
+dans server.c : 
+
+- faire un strtok sur buf et affecter les champs lus (séparés par des virgules aux champs d'un element
+oc_message (défini dans le oc_network.h). Il faut l'instancier et l'affecter dans le main (notamment le champ name qui est un char*).
+
+- vérifier l'intégrité des messages ? 

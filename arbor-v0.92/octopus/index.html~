@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>arbor.js project template</title>
+
+</head>
+<body>
+<canvas id="viewport" width="800" height="600"></canvas>
+
+  
+
+
+<script src="./jquery-1.11.1.min.js"></script>
+
+
+  
+<script src="../lib/arbor.js"></script>
+<script src="../lib/arbor-tween.js"></script>
+<script src="./_/graphics.js"></script>
+
+
+
+
+  <script src="./main.js"></script>
+
+</body>
+</html>
