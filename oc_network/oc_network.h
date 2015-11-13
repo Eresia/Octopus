@@ -14,6 +14,13 @@
 
 #define BUFLEN 512
 #define PORT 9930
+#define NUMBER_DATA 6
+
+//Types of messages
+#define NEW_CONNEXION "new"
+#define DATA "data"
+#define PAN "pan"
+#define TILT "tilt"
 
 typedef struct oc_message{
   int ID;
@@ -23,9 +30,14 @@ typedef struct oc_message{
   int read;
 } oc_message;
 
-
+typedef struct Data{
+    char* pan;
+    char* id;
+    char* tilt;
+} Data;
 
 void *oc_server(void *);
+char* whichData(Data data, char* string);
 
 
 #endif /*OC_NETWORK*/
