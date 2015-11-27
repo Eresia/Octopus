@@ -66,7 +66,7 @@ void *oc_server(void* empty)
             #endif
             data.id = strtok(separate[1],",");
             if (data.id != NULL) {
-                allData = strtok(NULL,"-");
+                allData = strtok(NULL,"");
                 /*do{
                     if (temp != NULL) {
                         string = whichData(data, temp);
