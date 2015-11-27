@@ -1,4 +1,4 @@
-all : octopus.out oc_client
+all : octopus.out oc_client.out
 
 
 VERSION = 0.3
@@ -19,7 +19,7 @@ LIBRARIES = -lGL -lGLU -lglut -lm -lX11   # LINUX
 LIBPATH += $(LIBRARIES)
 
 
-COMPILERFLAGS = -Wall
+COMPILERFLAGS = -Wall -DDEBUG
 
 
 CFLAGS = $(COMPILERFLAGS)
@@ -29,19 +29,19 @@ CFLAGS = $(COMPILERFLAGS)
 
 
 oc_graphics.o : $(DIR_GRAPHICS)/oc_graphics.c
-	gcc -Wall -c $(DIR_GRAPHICS)/oc_graphics.c -o $(DIR_OBJ)/oc_graphics.o
+	gcc $(COMPILERFLAGS) -c $(DIR_GRAPHICS)/oc_graphics.c -o $(DIR_OBJ)/oc_graphics.o
 
 client.o : $(DIR_NET)/client.c
-	gcc -Wall -c  $(DIR_NET)/client.c -o $(DIR_OBJ)/client.o
+	gcc $(COMPILERFLAGS) -c  $(DIR_NET)/client.c -o $(DIR_OBJ)/client.o
 
 oc_server.o :  $(DIR_NET)/oc_server.c
-	gcc -Wall -c  $(DIR_NET)/oc_server.c  -o $(DIR_OBJ)/oc_server.o
+	gcc $(COMPILERFLAGS) -c  $(DIR_NET)/oc_server.c  -o $(DIR_OBJ)/oc_server.o
 
 oc_kernel.o : $(DIR_KERNEL)/oc_kernel.c
-	gcc -Wall -c $(DIR_KERNEL)/oc_kernel.c  -o $(DIR_OBJ)/oc_kernel.o
+	gcc $(COMPILERFLAGS) -c $(DIR_KERNEL)/oc_kernel.c  -o $(DIR_OBJ)/oc_kernel.o
 
 main.o :  $(DIR_KERNEL)/main.c
-	gcc -Wall -c $(DIR_KERNEL)/main.c  -o $(DIR_OBJ)/main.o
+	gcc $(COMPILERFLAGS) -c $(DIR_KERNEL)/main.c  -o $(DIR_OBJ)/main.o
 
 oc_client.out :  client.o
 	gcc -o  $(DIR_EXEC)/oc_client.out  $(DIR_OBJ)/client.o

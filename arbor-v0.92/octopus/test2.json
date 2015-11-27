@@ -1,10 +1,4 @@
 {"nodes":{
-"11":{"color":"red", "shape":"dot", "alpha":0.729492},
-"22":{"color":"red", "shape":"dot", "alpha":0.476562},
-"55":{"color":"red", "shape":"dot", "alpha":0.408203},
-"13":{"color":"red", "shape":"dot", "alpha":0.333008},
-"3":{"color":"red", "shape":"dot", "alpha":0.333008},
-"2":{"color":"red", "shape":"dot", "alpha":0.333008},
-"1":{"color":"red", "shape":"dot", "alpha":0.333008}
+"0":{"color":"red", "shape":"dot", "alpha":0.967773}
 }
 }

@@ -18,7 +18,7 @@
 
 //Types of messages
 #define NEW_CONNEXION "new"
-#define DATA "data"
+#define DATA "dat"
 #define PAN "pan"
 #define TILT "tilt"
 
@@ -37,7 +37,7 @@ typedef struct Data{
 } Data;
 
 void *oc_server(void *);
-char* whichData(Data data, char* string);
-
+char** whichData(Data , char* );
+char** dividedString(char* , int );
 
 #endif /*OC_NETWORK*/

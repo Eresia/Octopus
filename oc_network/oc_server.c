@@ -20,12 +20,9 @@ void *oc_server(void* empty)
     int sockfd;
     socklen_t slen=sizeof(cli_addr);
     char buf[BUFLEN];
-    char size[2];
-    char* typeOfMessage;
     Data data;
-    char *temp, *string;
+    char *allData, **separate;
     int generalId = 0;
-    int dataSize;
 
     if ((sockfd = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP))==-1)
     err("socket");
@@ -44,46 +41,61 @@ void *oc_server(void* empty)
 
     while(1)
     {
-        if(recvfrom(sockfd, size, 2, 0, (struct sockaddr*)&cli_addr, &slen)==-1)
-        err("recvfrom() size");
-        dataSize = atoi(size);
-        if(dataSize != 0){
-            if (recvfrom(sockfd, buf, BUFLEN, 0, (struct sockaddr*)&cli_addr, &slen)==-1)
-            err("recvfrom() data");
-            printf("Received packet from %s:%d\nData: %s\n\n",
-            inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port), buf);
+        if (recvfrom(sockfd, buf, BUFLEN, 0, (struct sockaddr*)&cli_addr, &slen)==-1)
+        err("recvfrom() data");
+        printf("Received packet from %s:%d\nData: %s -\n\n",
+        inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port), buf);
 
-            typeOfMessage = strtok(buf, ",");
-            if(typeOfMessage != NULL){
-                if(strcmp(typeOfMessage, NEW_CONNEXION)){
+        separate = dividedString(buf, 3);
 
-                }
-                else if(strcmp(typeOfMessage, DATA)){
-                    data.id = strtok(buf,",");
-                    if (data.id != NULL) {
+        if(strcmp(separate[0], NEW_CONNEXION) == 0){
+            #ifdef DEBUG
+            printf("New connexion\n");
+            #endif
+            char* idString = malloc(2*sizeof(char));
+            if(generalId < 10)
+                sprintf(idString, "0%d", generalId);
+            else
+                sprintf(idString, "%d", generalId);
+            sendto(sockfd, idString, 2, 0, (struct sockaddr*)&cli_addr, sizeof(cli_addr));
+            generalId++;
+        }
+        else if(strcmp(separate[0], DATA) == 0){
+            #ifdef DEBUG
+                printf("New message\n");
+            #endif
+            data.id = strtok(separate[1],",");
+            if (data.id != NULL) {
+                allData = strtok(NULL,"-");
+                /*do{
+                    if (temp != NULL) {
+                        string = whichData(data, temp);
                         temp = strtok(NULL,",");
-                        if (temp != NULL) {
-                            string = whichData(data, temp);
-                            temp = strtok(NULL,",");
-                            if ((temp != NULL) && (string != NULL)){
-                                
-
-
-                                printf("Client %d", atoi(data.id));
-                                build_list(&root,atoi(tokens[0]), tokens[1], atoi(tokens[2]));
-                            }
-                            else  fprintf(stderr,"message not recognized (third argument invalid)\n");
+                        if ((temp != NULL) && (string != NULL)){
+                            if(atoi(temp) != 0)
+                            *string = temp;
                         }
-                        else fprintf(stderr,"message not recognized (second argument invalid)\n");
                     }
-                    else fprintf(stderr,"message not recognized\n (fisrt argument invalid)");
+                    temp = strtok(NULL,",");
+                } while(temp != NULL);*/
+                if(allData != NULL){
+                    #ifdef DEBUG
+                    printf("Client %d envoie %s\n", atoi(data.id), allData);
+                    #endif
+                    build_list(&root,atoi(data.id), allData, 1024);
+                    sendto(sockfd, "ok", 2, 0, (struct sockaddr*)&cli_addr, sizeof(cli_addr));
                 }
                 else{
-                    fprintf(stderr,"Bad type of data\n");
+                    printf("No Data\n");
                 }
             }
+            else{
+                printf("No ID\n");
+            }
         }
-        else fprintf(stderr,"Bad size of data");
+        else{
+            printf("Bad type of data\n");
+        }
 
     }
 
@@ -91,14 +103,29 @@ void *oc_server(void* empty)
     return 0;
 }
 
-char* whichData(Data data, char* string){
+char** whichData(Data data, char* string){
+    char** result = NULL;
     if(strcmp(string, PAN) == 0){
-        return data.pan;
+        result = &(data.pan);
     }
     else if(strcmp(string, TILT) == 0){
-        return data.tilt;
+        result = &(data.tilt);
     }
-    else{
-        return NULL;
+    return result;
+}
+
+char** dividedString(char* string, int nbChar){
+    int i = 0;
+    char** result = (char**) malloc(2*sizeof(char*));
+    result[0] = (char*) malloc(nbChar*sizeof(char));
+    result[1] = (char*) malloc((strlen(string) - nbChar)*sizeof(char));
+
+    for(i = 0; i < strlen(string); i++){
+        if(i < nbChar)
+        result[0][i] = string[i];
+        else
+        result[1][i-nbChar] = string[i];
     }
+
+    return result;
 }

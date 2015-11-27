@@ -35,14 +35,14 @@ void * refresh (void * em) {
   gettimeofday(&start, 0);
 
 
-  build_list (&root,1,"babar",1024);
+  /*build_list (&root,1,"babar",1024);
   build_list (&root,2,"babar",1024);
   build_list (&root,3,"babar",1000);
 
   build_list (&root,1,"babar",1024);
   build_list (&root,1,"babar",1024);
   build_list (&root,13,"sxsbabar",1024);
-  build_list (&root,2,"babare",1024);
+  build_list (&root,2,"babare",1024);*/
 
   print_list (root);
   printf("------------------\n");
@@ -50,7 +50,7 @@ void * refresh (void * em) {
   while (1){
 
     gettimeofday(&checkpoint, 0);
-    diff=(checkpoint.tv_sec-start.tv_sec) * 1000000L + (checkpoint.tv_usec-start.tv_usec); // calculate time elapsed                                 
+    diff=(checkpoint.tv_sec-start.tv_sec) * 1000000L + (checkpoint.tv_usec-start.tv_usec); // calculate time elapsed
 
     if (diff < TASK_PERIOD ) ; /* we are toot early : do nothing*/
     else {
@@ -88,7 +88,7 @@ int main (int argc,char**argv){
 
   size_cube = 60.;
   size_cell = 6.;
- 
+
 
   pthread_create (&server,0,oc_server,0);
   pthread_create (&db,0,refresh,0);
@@ -96,29 +96,29 @@ int main (int argc,char**argv){
 
 
   /* initilisation de glut et creation de la fenetre */
-  
+
   glutInit(&argc,argv);
 
   glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
   glutInitWindowPosition(200,200);
   glutInitWindowSize(530,530);
-  glutCreateWindow("Octopus"); 
+  glutCreateWindow("Octopus");
 
   /* initialisation OpenGL */
-  
-  glClearColor(0,0,0,0);                                                                                              
-  glColor3f(1,1,1);                                                                                                     
-  glPointSize(1);                                                                                                       
+
+  glClearColor(0,0,0,0);
+  glColor3f(1,1,1);
+  glPointSize(1);
   glEnable(GL_DEPTH_TEST);
-  
+
   /* enregistrement des fonctions de rappel */
-  glutDisplayFunc(affichage);                                                                                        
-  glutKeyboardFunc(clavier);                                                                                            
-  glutReshapeFunc(reshape);                                                                                             
-  glutIdleFunc(idle);                                                                                                   
-  glutMouseFunc(mouse);                                                                                                 
-  glutMotionFunc(mousemotion);                                                                                          
-  
+  glutDisplayFunc(affichage);
+  glutKeyboardFunc(clavier);
+  glutReshapeFunc(reshape);
+  glutIdleFunc(idle);
+  glutMouseFunc(mouse);
+  glutMotionFunc(mousemotion);
+
 
   /* non graphical global goes here */
 
@@ -126,9 +126,9 @@ int main (int argc,char**argv){
 
   /* main loop */
    glutMainLoop();
-  
 
- 
+
+
 return 0;
 
 
