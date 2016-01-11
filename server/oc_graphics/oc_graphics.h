@@ -3,7 +3,7 @@
 
 #include <stdarg.h>
 #include <math.h>
-#include <GL/glut.h>    /*for Linux*/                                                              
+#include <GL/glut.h>    /*for Linux*/
 //#include <GLUT/glut.h>    /*for macos*/
 #include <time.h>
 #include "../oc_kernel/oc_kernel.h"
@@ -35,7 +35,7 @@ typedef struct {
 
 void draw_text(float x, float y, const char *fmt, ...);
 void affichage();
-void clavier(unsigned char touche,int x,int y);
+void clavier(unsigned char touche, int x, int y);
 void reshape(int x,int y);
 void mouse(int bouton,int etat,int x,int y);
 void mousemotion(int x,int y);

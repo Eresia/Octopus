@@ -82,7 +82,7 @@ void *oc_server(void* empty)
                     #ifdef DEBUG
                     printf("Client %d envoie %s\n", atoi(data.id), allData);
                     #endif
-                    build_list(&root,atoi(data.id), allData, 1024);
+                    build_list(&root,atoi(data.id), allData, RESET_VALUE);
                     sendto(sockfd, "ok", 2, 0, (struct sockaddr*)&cli_addr, sizeof(cli_addr));
                 }
                 else{

@@ -9,7 +9,7 @@
 /* affiche la chaine fmt a partir des coordonnées x,y*/
 void draw_text(float x, float y, const char *fmt, ...)
 {
-  char            buf[1024];                      //Holds Our String
+  char            buf[1000];                      //Holds Our String
   char            *text = buf;
   va_list         ap;                             // Pointer To List Of Arguments
 
@@ -46,7 +46,7 @@ void draw_text(float x, float y, const char *fmt, ...)
 void affichage() {
   //int i,ic,deb;
   int i;
-  float x,y;
+  //float x,y;
 
     object *finger;
 
@@ -77,16 +77,17 @@ void affichage() {
 
   while (finger != NULL){
 
-    glColor3f(0.6*(float) (finger->timeout)/1024.,0.6*(float) (finger->timeout)/1024.,(float) (finger->timeout)/1024. );
+    glColor3f(0.6*(float) (finger->timeout)/RESET_VALUE,0.6*(float) (finger->timeout)/RESET_VALUE,(float) (finger->timeout)/RESET_VALUE );
     draw_text(-1.,0.9-(float)i/18,"ID: %d value : %d",finger->ID,finger->activity);
     glPushMatrix();
-    //    glTranslated(finger->x,finger->y,finger->z);
+    glTranslated(finger->x*size_cell-27,finger->y*size_cell-27,finger->z*size_cell-27);
+	//glTranslated(27.,27.,27.);
 
-    x=(finger->ID%10)*size_cell-27.;
+    /*x=(finger->ID%10)*size_cell-27.;
     y=(finger->ID/10)*size_cell-27.;
-    glTranslated(x,y,-27.);
+    glTranslated(x,y,-27.);*/
 
-    glutSolidCube((float) ((finger->activity)/1024*size_cell)-0.6);
+    glutSolidCube((float) ((finger->activity)/RESET_VALUE*size_cell)-0.6);
     glPopMatrix();
 
 
@@ -125,7 +126,7 @@ void idle(){
 
 
 
-void clavier(unsigned char touche,int x,int y) {
+void clavier(unsigned char touche, int x, int y) {
   //int i;
   switch(touche) {
   case 'p':

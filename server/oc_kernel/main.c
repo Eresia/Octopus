@@ -11,7 +11,6 @@
 #include <pthread.h>
 
 
-
 pthread_t server;
 pthread_t db;
 
@@ -33,16 +32,6 @@ void * refresh (void * em) {
 
   /*initializing the time reference*/
   gettimeofday(&start, 0);
-
-
-  /*build_list (&root,1,"babar",1024);
-  build_list (&root,2,"babar",1024);
-  build_list (&root,3,"babar",1000);
-
-  build_list (&root,1,"babar",1024);
-  build_list (&root,1,"babar",1024);
-  build_list (&root,13,"sxsbabar",1024);
-  build_list (&root,2,"babare",1024);*/
 
   print_list (root);
   printf("------------------\n");
@@ -93,8 +82,6 @@ int main (int argc,char**argv){
   pthread_create (&server,0,oc_server,0);
   pthread_create (&db,0,refresh,0);
 
-
-
   /* initilisation de glut et creation de la fenetre */
 
   glutInit(&argc,argv);
@@ -126,8 +113,6 @@ int main (int argc,char**argv){
 
   /* main loop */
    glutMainLoop();
-
-
 
 return 0;
 
