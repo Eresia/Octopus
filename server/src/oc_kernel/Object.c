@@ -37,7 +37,7 @@ void updateData(ListObject* list, int id, void* data, int activity){
 		list->firstObject = createItem(createObject(id, data, activity));
 		list->size++;
 		#ifdef DEBUG
-			printf("Object update\n");
+			printf("List update\n");
 		#endif
 	}
 	else{
@@ -109,8 +109,10 @@ Object* createObject(int id, void* data, int activity){
 	Object* obj = malloc(sizeof(Object));
 	obj->id = id;
 	obj->data = malloc(MAX_DATA_IN_OBJECTS*sizeof(Object));
+	obj->data[0] = data;
 	obj->activity = activity;
 	obj->timeout = TIMEOUT_MAX;
+	obj->sizeData = 1;
 	return obj;
 }
 
@@ -126,6 +128,7 @@ void updateObject(Object* obj, void* data, int activity){
 	obj->data[obj->sizeData] = data;
 	obj->activity = activity;
 	obj->timeout = TIMEOUT_MAX;
+	obj->sizeData++;
 }
 
 /*=============================================================================private functions on ListObject*/
