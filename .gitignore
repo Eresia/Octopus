@@ -33,3 +33,6 @@
 
 #json
 *.json
+
+# Under Makefile
+server/src/*/Makefile

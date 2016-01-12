@@ -1,0 +1,13 @@
+SOURCES= $(wildcard *.$(srcName))
+
+OBJECTS= $(SOURCES:.$(srcName)=.o)
+
+OBJECTS_PATH=$(foreach obj, $(OBJECTS), $(objectDir)/$(obj))
+
+all: $(OBJECTS)
+
+%.o: %.$(srcName) $(hearders)
+	$(CC) -o $(objectDir)/$@ -c $< $(CFLAGS)
+
+clean:
+	rm -R $(OBJECTS_PATH);
