@@ -8,6 +8,10 @@ ListObject* initListObject(){
 	return list;
 }
 
+bool isListVoid(ListObject* list){
+	return (list->firstObject == NULL);
+}
+
 
 void addObject(ListObject* list, Object* obj){
 	if(list->firstObject == NULL){
@@ -111,7 +115,7 @@ Object* createObject(int id, void* data, int activity){
 	obj->data = malloc(MAX_DATA_IN_OBJECTS*sizeof(Object));
 	obj->data[0] = data;
 	obj->activity = activity;
-	obj->timeout = TIMEOUT_MAX;
+	obj->timeout = activity;
 	obj->sizeData = 1;
 	return obj;
 }
@@ -127,7 +131,7 @@ void printObject(Object* obj){
 void updateObject(Object* obj, void* data, int activity){
 	obj->data[obj->sizeData] = data;
 	obj->activity = activity;
-	obj->timeout = TIMEOUT_MAX;
+	obj->timeout = activity;
 	obj->sizeData++;
 }
 
@@ -217,8 +221,8 @@ Object* getObjectById_Item(ItemObject item, int id){
 }
 
 void updateTimeouts_Item(ItemObject item){
-	if(item != NULL){
-		item->object->timeout -= SPEED_TIMEOUT;
+	if((item != NULL) && (item->object->timeout > 0)){
+		item->object->timeout --;
 		updateTimeouts_Item(item->next);
 	}
 }

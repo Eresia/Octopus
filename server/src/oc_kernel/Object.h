@@ -7,7 +7,6 @@
 #include "../usefull/Usefull.h"
 
 #define MAX_DATA_IN_OBJECTS 100
-#define TIMEOUT_MAX 1024
 #define SPEED_TIMEOUT 1
 
 /*An object representation*/
@@ -36,6 +35,7 @@ struct ListObject{
 
 /*public functions on ListObject*/
 ListObject* initListObject();
+bool isListVoid(ListObject* list);
 
 void addObject(ListObject* list, Object* obj);
 void updateData(ListObject* list, int id, void* data, int activity);

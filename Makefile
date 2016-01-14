@@ -3,14 +3,14 @@ headName=h
 srcName=c
 
 LIBRAIRIES=-lGL -lGLU -lglut -lm -lX11 #Linux
-#FRAMEWORK = #Linux
+FRAMEWORK = #Linux
 
 #LIBRARIES = -L\"/System/Library/Frameworks/OpenGL.framework/Libraries\" # MacOs
 #FRAMEWORK = -framework GLUT   #Macos
 #FRAMEWORK += -framework OpenGL #Macos
 
 CFLAGS=-Wall -DDEBUG
-EFLAGS=$(FRAMEWORK) -lpthread -g
+EFLAGS=$(FRAMEWORK) -lpthread -g $(LIBRAIRIES)
 
 server=server.out
 
